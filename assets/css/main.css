@@ -1761,7 +1761,7 @@ input, select, textarea {
 	header p {
 		color: #aaa;
 		position: relative;
-		margin: 0 0 1.6875em 0;
+		margin: 0 0 0 0;
 	}
 
 	header h2 + p {
@@ -2829,7 +2829,7 @@ input, select, textarea {
 	}
 
 		#main > section > .container {
-			padding: 6em 0 4em 0;
+			padding: 4em 0 2em 0;
 		}
 
 		#main > section:first-child {
