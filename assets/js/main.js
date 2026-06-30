@@ -121,6 +121,16 @@
 
 				});
 
+			$window.on('hashchange', function() {
+				var hash = window.location.hash,
+					$target = $nav_a.filter('[href="' + hash + '"]');
+
+				if ($target.length > 0) {
+					$nav_a.removeClass('active active-locked');
+					$target.addClass('active');
+				}
+			});
+
 		// Title Bar.
 			$titleBar = $(
 				'<div id="titleBar">' +
@@ -133,7 +143,7 @@
 		// Panel.
 			$header
 				.panel({
-					delay: 500,
+					delay: 350,
 					hideOnClick: true,
 					hideOnSwipe: true,
 					resetScroll: true,
@@ -143,9 +153,22 @@
 					visibleClass: 'header-visible'
 				});
 
+			var syncTitleBarState = function() {
+				if (!$titleBar)
+					return;
+
+				if (breakpoints.active('<=medium') && $window.scrollTop() > 8)
+					$titleBar.addClass('is-scrolled');
+				else
+					$titleBar.removeClass('is-scrolled');
+			};
+
+			$window.on('scroll resize load', syncTitleBarState);
+			syncTitleBarState();
+
 	// Scrolly.
 		$('.scrolly').scrolly({
-			speed: 1000,
+			speed: 700,
 			offset: function() {
 
 				if (breakpoints.active('<=medium'))

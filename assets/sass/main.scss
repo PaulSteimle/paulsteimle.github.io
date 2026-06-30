@@ -222,9 +222,9 @@
 	}
 
 	code {
-		background: #555;
+		background: _palette(fg-bold);
 		border-radius: _size(border-radius);
-		color: #fff;
+		color: _palette(bg);
 		font-family: _font(family-fixed);
 		font-size: 0.9em;
 		margin: 0 0.25em;
@@ -454,6 +454,20 @@
 
 	textarea {
 		padding: 0.75em 1em;
+	}
+
+	input.is-invalid,
+	textarea.is-invalid {
+		border-color: _palette(accent1, bg) !important;
+		box-shadow: 0 0 0 1px _palette(accent1, bg);
+	}
+
+	.field-error {
+		color: _palette(accent1, bg);
+		font-size: 0.8em;
+		line-height: 1.35;
+		min-height: 1.35em;
+		margin: 0.45em 0 0 0;
 	}
 
 	input[type="checkbox"],
@@ -1143,6 +1157,41 @@
 					margin-bottom: 0;
 				}
 			}
+
+			&.wrap {
+				.image {
+					float: left;
+					width: 57%;
+					padding-right: 1.75em;
+					padding-bottom: 0.5em;
+					margin-bottom: 0;
+					vertical-align: top;
+				}
+
+				.inner {
+					display: block;
+					width: auto;
+				}
+			}
+
+			&::after {
+				content: "";
+				display: block;
+				clear: both;
+			}
+		}
+	}
+
+	a.image.glightbox {
+		overflow: hidden;
+
+		img {
+			@include vendor('transition', 'transform #{_duration(transition)} ease-in-out, filter #{_duration(transition)} ease-in-out');
+		}
+
+		&:hover img {
+			@include vendor('transform', 'scale(1.03)');
+			filter: saturate(1.05) contrast(1.02);
 		}
 	}
 
@@ -1197,7 +1246,7 @@
 			.avatar {
 				display: block;
 				margin: 0 auto _size(element-margin) auto;
-				width: 8em;
+				width: 9.6em;
 			}
 
 			h1 {
@@ -1218,6 +1267,13 @@
 			left: 0;
 			padding: 2em;
 			width: 100%;
+
+			.address {
+				color: _palette(header, fg-light);
+				font-size: 0.85em;
+				line-height: 1.35;
+				margin: 0 0 1em 0;
+			}
 
 			.icons {
 				margin: 0;
@@ -1244,7 +1300,7 @@
 					padding: 0;
 
 					a {
-						@include vendor('transition', 'none');
+						@include vendor('transition', ('background-color #{_duration(transition)} ease-in-out', 'color #{_duration(transition)} ease-in-out'));
 						border: 0;
 						color: _palette(header, fg-bold) !important;
 						display: block;
@@ -1297,9 +1353,9 @@
 /* Footer */
 
 	#footer {
-		background: #fafafa;
+		background: _palette(border-bg);
 		border-top: 0;
-		color: #c0c0c0;
+		color: _palette(fg-light);
 		overflow: hidden;
 		padding: 4em 0 2em 0;
 
@@ -1309,7 +1365,7 @@
 			padding: 0;
 
 			li {
-				border-left: solid 1px #d4d4d4;
+				border-left: solid 1px _palette(border2);
 				display: inline-block;
 				font-size: 0.8em;
 				margin-left: 1em;
@@ -1447,7 +1503,7 @@
 
 			#header {
 				@include vendor('backface-visibility', 'hidden');
-				@include vendor('transition', ('transform #{_duration(header)} ease'));
+				@include vendor('transition', ('transform #{_duration(header)} cubic-bezier(0.22, 1, 0.36, 1)'));
 				display: block;
 				height: 100%;
 				overflow-y: auto;
@@ -1479,7 +1535,7 @@
 
 			#wrapper {
 				@include vendor('backface-visibility', 'hidden');
-				@include vendor('transition', 'transform #{_duration(header)} ease');
+				@include vendor('transition', 'transform #{_duration(header)} cubic-bezier(0.22, 1, 0.36, 1)');
 				padding: 44px 0 1px 0;
 			}
 
@@ -1487,7 +1543,7 @@
 
 			#titleBar {
 				@include vendor('backface-visibility', 'hidden');
-				@include vendor('transition', 'transform #{_duration(header)} ease');
+				@include vendor('transition', 'transform #{_duration(header)} cubic-bezier(0.22, 1, 0.36, 1)');
 				display: block;
 				height: 44px;
 				left: 0;
@@ -1495,12 +1551,17 @@
 				top: 0;
 				width: 100%;
 				z-index: _misc(z-index-base) + 1;
-				background: #222;
-				color: #fff;
+				background: _palette(header, bg);
+				color: _palette(header, fg-bold);
 				min-width: 320px;
+				box-shadow: 0 1px 0 _palette(header, border);
+
+				&.is-scrolled {
+					box-shadow: 0 6px 18px rgba(0,0,0,0.18);
+				}
 
 				.title {
-					color: #fff;
+					color: _palette(header, fg-bold);
 					display: block;
 					font-weight: _font(weight-bold);
 					height: 44px;
@@ -1647,6 +1708,19 @@
 
 			.features {
 				article {
+					&.wrap {
+						.image {
+							float: none;
+							width: 100%;
+							padding-right: 0;
+							padding-bottom: 0;
+						}
+
+						.inner {
+							width: 100%;
+						}
+					}
+
 					.image {
 						display: block;
 						margin: 0 0 _size(element-margin) 0;
@@ -1764,6 +1838,11 @@
 
 			html, body {
 				min-width: 320px;
+				box-shadow: 0 1px 0 _palette(header, border);
+
+				&.is-scrolled {
+					box-shadow: 0 6px 18px rgba(0,0,0,0.18);
+				}
 			}
 
 			body, input, select, textarea {
