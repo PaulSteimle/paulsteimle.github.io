@@ -1,3 +1,14 @@
-*/.DS_Store
+# macOS
+.DS_Store
 *.DS_Store
+
+# Local image backups (originals of images/displays)
 images/displays/jpg_backups/
+
+# AI tooling / agent config (local only)
+.agents/
+.claude/
+skills-lock.json
+
+# Local working files not linked from the site
+rnaaspdf.pdf
