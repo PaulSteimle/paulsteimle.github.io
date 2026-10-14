@@ -150,8 +150,15 @@ main > section:last-child { border-bottom: 0; }
 .card details[open] summary { margin-bottom: .75rem; }
 
 /* Publications */
-.pubs { padding-left: 1.25rem; margin: 0 0 1.25rem; }
-.pubs li { margin-bottom: .9rem; padding-left: .25rem; }
+.pubs { list-style: none; padding-left: 0; margin: 0 0 1.25rem; }
+.pubs li { position: relative; margin-bottom: .9rem; padding-left: 1.75rem; }
+/* Ringed-planet bullet, drawn as a mask so it takes the accent color in both themes. */
+.pubs li::before {
+	content: ""; position: absolute; left: 0; top: .1em; width: 1.35em; height: 1.35em;
+	background: var(--accent);
+	-webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cg transform='rotate(-20 12 12)'%3E%3Cmask id='m'%3E%3Crect width='24' height='24' fill='%23fff'/%3E%3Cpath d='M1 12A11 4 0 0 0 23 12' fill='none' stroke='%23000' stroke-width='3.4'/%3E%3C/mask%3E%3Ccircle cx='12' cy='12' r='6.5' mask='url(%23m)'/%3E%3Cellipse cx='12' cy='12' rx='11' ry='4' fill='none' stroke='%23000' stroke-width='1.4'/%3E%3C/g%3E%3C/svg%3E") center / contain no-repeat;
+	        mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cg transform='rotate(-20 12 12)'%3E%3Cmask id='m'%3E%3Crect width='24' height='24' fill='%23fff'/%3E%3Cpath d='M1 12A11 4 0 0 0 23 12' fill='none' stroke='%23000' stroke-width='3.4'/%3E%3C/mask%3E%3Ccircle cx='12' cy='12' r='6.5' mask='url(%23m)'/%3E%3Cellipse cx='12' cy='12' rx='11' ry='4' fill='none' stroke='%23000' stroke-width='1.4'/%3E%3C/g%3E%3C/svg%3E") center / contain no-repeat;
+}
 .pubs .title { font-weight: 600; }
 .tag { display: inline-block; font-size: .75rem; padding: .05rem .5rem; border-radius: 999px; background: var(--accent-soft); color: var(--accent); vertical-align: 1px; margin-left: .25rem; }
 
@@ -210,6 +217,9 @@ main > section:last-child { border-bottom: 0; }
 
 @media print {
 	.topbar, .gallery, #photography, .icons { display: none; }
+	/* Show collapsed "Read more" text; ::details-content covers current Chrome/Safari. */
 	.card details > *:not(summary) { display: block; }
+	.card details::details-content { content-visibility: visible; display: contents; }
+	.card summary { display: none; }
 	a { color: inherit; }
 }

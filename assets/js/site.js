@@ -43,6 +43,16 @@
 		document.querySelectorAll('main > section[id]').forEach(function (s) { observer.observe(s); });
 	}
 
+	// Print the full "Read more" text, then restore what was collapsed.
+	var reopened = [];
+	window.addEventListener('beforeprint', function () {
+		document.querySelectorAll('details:not([open])').forEach(function (d) { d.open = true; reopened.push(d); });
+	});
+	window.addEventListener('afterprint', function () {
+		reopened.forEach(function (d) { d.open = false; });
+		reopened = [];
+	});
+
 	// Theme toggle: flips between light and dark and remembers the choice.
 	// Without a saved choice the page follows the device setting.
 	var root = document.documentElement;
